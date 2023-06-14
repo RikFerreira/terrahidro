@@ -1,0 +1,13 @@
+Package: terrahidro
+Title: An Interface to TerraHidro Software
+Version: 0.0.0.9000
+Authors@R:
+    person("Rik", "Alves", , "rikferreiraalves@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8084-7951"))
+Description: An interface to TerraHidro software, which is a terrain analysis software developed by National Institute For Space Research (INPE) - Brazil.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    terra
