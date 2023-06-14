@@ -2,22 +2,24 @@
 % Please edit documentation in R/th_carvev.R
 \name{th_carvev}
 \alias{th_carvev}
-\title{Carve channels on a MDT in a v-shaped form}
+\title{Carve channels on a DEM in a v-shaped form}
 \usage{
-th_carvev(dem, output, keep_mdt = TRUE)
+th_carvev(dem = NULL, output = NULL, keep_dem = TRUE, load_output = FALSE)
 }
 \arguments{
-\item{dem}{May be a SpatRaster object or a file path indicating the source of the MDT}
+\item{dem}{May be a SpatRaster object or a file path indicating the source of the DEM}
 
-\item{output}{Specify the output of the carved MDT}
+\item{output}{Specify the output of the carved DEM}
 
-\item{keep_mdt}{Keep the original MDT in temp directory for later use}
+\item{keep_dem}{Keep the original DEM in temp directory for later use, if it is not a SpatRaster object}
+
+\item{load_output}{Load output layer as a SpatRaster object}
 }
 \value{
 A SpatRaster object of the v-shaped carved MDT
 }
 \description{
-Carve channels on a MDT in a v-shaped form
+Carve channels on a DEM in a v-shaped form
 }
 \examples{
 # carved <- th_carvev(srtm1arc, "~/dem_carvev.tif")
