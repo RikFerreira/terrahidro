@@ -19,9 +19,9 @@ run_th_command <- function(command, input_args, output) {
 
     command_return <- suppressWarnings(
         system(
-            paste("th", command, input_args, output),
+            paste("th", command, paste(input_args, collapse = " "), paste(output, collapse = " "), collapse = " "),
             intern = TRUE,
-            ignore.stdout = FALSE, ignore.stderr = FALSE,
+            ignore.stdout = FALSE, ignore.stderr = FALSE
         ),
     )
 
@@ -36,7 +36,7 @@ check_input <- function(input, name, keep_input) {
             cli::cli_inform("Storing original input for later use...")
             temp_input <- terra::rast(input)
 
-            input_file <- paste0(pkg.env$temp_working_dir, "input_", name, ".tif")
+            input_file <- paste0(pkg.env$temp_working_dir, name, ".tif")
             terra::writeRaster(temp_input, input_file, overwrite = TRUE)
         } else {
             input_file <- input
@@ -46,7 +46,7 @@ check_input <- function(input, name, keep_input) {
 
         cli::cli_inform("Storing original input for later use...")
 
-        input_file <- paste0(pkg.env$temp_working_dir, "input_", name, ".tif")
+        input_file <- paste0(pkg.env$temp_working_dir, name, ".tif")
         terra::writeRaster(input, input_file, overwrite = TRUE)
     } else if(is.null(input)) { # If input should be recovered from workflow
         if(!keep_input) cli::cli_warn("keep_input = FALSE option ignored!")

@@ -14,7 +14,7 @@ th_pfs <- function(dem = NULL, output = NULL, keep_input = TRUE, load_output = F
 
     dem_file <- check_input(dem, "DEM", keep_input)
 
-    output_file <- paste0(pkg.env$temp_working_dir, "dtm_simplepits.tif")
+    output_file <- paste0(pkg.env$temp_working_dir, "dtm_pfs.tif")
 
     run_th_command(
         "pfs",

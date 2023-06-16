@@ -15,14 +15,12 @@ th_mouths <- function(d8 = NULL, drainage = NULL, contrib = NULL, output, keep_i
     if(is.null(pkg.env$temp_working_dir)) cli::cli_abort("Please, run the setup function first!")
 
     d8_file <- check_input(d8, "D8", keep_input)
-    drainage_file <- check_input(drainage, "D8", keep_input)
-    contrib_file <- check_input(contrib, "D8", keep_input)
+    drainage_file <- check_input(drainage, "drainage", keep_input)
+    contrib_file <- check_input(contrib, "contributing_area", keep_input)
 
     mouths_file <- paste0(pkg.env$temp_working_dir, "mouths.txt")
     output_file <- paste0(pkg.env$temp_working_dir, "ordered_mouths.txt")
     otto_mouths_file <- paste0(pkg.env$temp_working_dir, "otto_mouths.txt")
-
-    ref_raster <- terra::rast(drainage_file)
 
     run_th_command(
         "mouths",
@@ -35,6 +33,8 @@ th_mouths <- function(d8 = NULL, drainage = NULL, contrib = NULL, output, keep_i
         c(contrib_file, mouths_file),
         output_file
     )
+
+    ref_raster <- terra::rast(contrib_file)
 
     mouths_t <- utils::read.table(output_file, sep = "\t", col.names = c("row", "column"))
 
@@ -69,7 +69,8 @@ th_mouths <- function(d8 = NULL, drainage = NULL, contrib = NULL, output, keep_i
     mouths_xy["row"] <- mouths_t$row
     mouths_xy["column"] <- mouths_t$column
 
-    mouths_points <- sf::st_as_sf(mouths_xy, coords = c("x", "y"), crs = terra::crs(terra::rast(ref_raster)))
+    mouths_points <- sf::st_as_sf(mouths_xy, coords = c("x", "y"), crs = terra::crs(ref_raster, proj = TRUE))
+    mouths_points["contributing_area"] <- terra::extract(ref_raster, mouths_points, ID = FALSE)[,1]
     mouths_points_file <- paste0(pkg.env$temp_working_dir, "mouths_points.gpkg")
 
     sf::write_sf(mouths_points, mouths_points_file)
@@ -77,7 +78,7 @@ th_mouths <- function(d8 = NULL, drainage = NULL, contrib = NULL, output, keep_i
     update_workflow("mouths", mouths_file)
     update_workflow("ordered_mouths", output_file)
     update_workflow("otto_mouths", otto_mouths_file)
-    update_workflow("mouths_points_file", mouths_points)
+    update_workflow("mouths_points", mouths_points_file)
 
     if(load_output) return(mouths_points)
 }

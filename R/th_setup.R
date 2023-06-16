@@ -24,7 +24,9 @@ th_setup <- function() {
         layer = c(
             "input_dem",
             "dem_carvev", "dem_simplepits", "dem_pfs",
-            "dem_carve"
+            "dem_carve",
+            "mouths", "ordered_mouths", "otto_mouths", "mouths_points",
+            "d8", "drainage", "contributing_area"
         ),
         path = c("")
     )
