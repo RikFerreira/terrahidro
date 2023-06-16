@@ -23,7 +23,8 @@ th_setup <- function() {
     pkg.env$workflow <- data.frame(
         layer = c(
             "input_dem",
-            "dem_carve", "dem_carvev"
+            "dem_carvev", "dem_simplepits", "dem_pfs",
+            "dem_carve"
         ),
         path = c("")
     )
