@@ -9,11 +9,15 @@ th_setup <- function() {
     if(!dir.exists(pkg.env$temp_working_dir)) {
         dir.create(pkg.env$temp_working_dir)
 
-        message("Temporary working directory created!")
-        message(paste("Directory:", pkg.env$temp_working_dir))
+        cli::cli_inform(c(
+                "v" = "Temporary working directory created!",
+                "i" = "Directory: {pkg.env$temp_working_dir}"
+        ))
     } else {
-        message("Temporary working directory already exists!")
-        message(paste("Directory:", pkg.env$temp_working_dir))
+        cli::cli_inform(c(
+            "!" = "Temporary working directory already exists!",
+            "i" = "Directory: {pkg.env$temp_working_dir}"
+        ))
     }
 
     pkg.env$workflow <- data.frame(

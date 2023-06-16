@@ -15,7 +15,7 @@ update_workflow <- function(layer, path) {
 }
 
 run_th_command <- function(command, input_args, output) {
-    message(sprintf("Running %s command", command))
+    cli::cli_inform("Running {.var {command}} command")
 
     command_return <- suppressWarnings(
         system(

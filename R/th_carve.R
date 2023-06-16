@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' # carved <- th_carvev(srtm1arc, "~/dem_carvev.tif")
-th_carvev <- function(dem = NULL, output = NULL, keep_dem = TRUE, load_output = FALSE) {
+th_carve <- function(dem = NULL, output = NULL, keep_dem = TRUE, load_output = FALSE) {
     if(is.null(pkg.env$temp_working_dir)) cli::cli_abort("Please, run the setup function first!")
 
     if(grepl("\\.tif$|\\.tiff$", dem)) { # If DEM is a TIFF file
@@ -45,7 +45,7 @@ th_carvev <- function(dem = NULL, output = NULL, keep_dem = TRUE, load_output = 
     output_file <- paste0(pkg.env$temp_working_dir, "dtm_carvedv.tif")
 
     run_th_command(
-        "carvev",
+        "carve",
         dem_file,
         output_file
     )
